@@ -42,10 +42,28 @@ count_multiples_tr([Head | Tail], Factor, Count, Total) :-
 %maxlist(List, Max) -- List will have at least one value in it. -- hint, you may need an additional predicate.
 
 
-%ordered(List)
+%ordered(List) 
+% Base case, singleton list
+ordered([_]).
+% Get first two elements, compare, then pass recursively 
+ordered([First, Second | Tail]) :-
+    First >= Second,
+    ordered([Second | Tail]).
 
 
 %subsetsum(List,Sum,Subset)
+% Base case, empty list
+subsetsum([], 0, []).
+% If Head could possibly be in subset
+subsetsum([Head | Tail], Sum, [Head | Subset]) :-
+    NewSum is Sum - Head,
+    NewSum >= 0,   % Make sure NewSum is not negative
+    subsetsum(Tail, NewSum, Subset).
+% If Head could not be in subset
+subsetsum([ _ | Tail], Sum, Subset) :-
+    subsetsum(Tail, Sum, Subset).
+
+
 
 locations([alaska, canada, new_england, oregon, yellowstone]).
 vacation_modes([backpacking, camping, cruise, pickup_camper, van]).
