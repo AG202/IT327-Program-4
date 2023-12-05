@@ -36,10 +36,20 @@ count_multiples_tr([Head | Tail], Factor, Count, Total) :-
     count_multiples_tr(Tail, Factor, Count, Total).
 
 
-
-
-
+% Ch 22, ex 2
 %maxlist(List, Max) -- List will have at least one value in it. -- hint, you may need an additional predicate.
+% Base case, one item in list
+maxlist([Max], Max)
+% If head is greater than max
+maxlist([Head | Tail], Max) :-
+    maxlist(Tail, MaxTail),
+    Head >= MaxTail,
+    Max = Head.
+% If head is not greater
+maxlist([Head | Tail], Max) :-
+    maxlist(Tail, Max),
+    Max > Head.
+
 
 
 %ordered(List) 
@@ -51,6 +61,7 @@ ordered([First, Second | Tail]) :-
     ordered([Second | Tail]).
 
 
+% Ch 22, ex 6
 %subsetsum(List,Sum,Subset)
 % Base case, empty list
 subsetsum([], 0, []).
